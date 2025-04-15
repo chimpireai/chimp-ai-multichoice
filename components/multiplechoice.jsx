@@ -19,7 +19,7 @@ const MultipleChoice = ({fetchAndLog}) => {
     const [questionsAttempted, setQuestionsAttempted] = useState(0);
     const [score, setScore] = useState(0);
     const [questions, setQuestions] = useState([]);
-    const [disableBackForTimeout, setDisableBackForTimeout] = useState(false);
+    const [disableButtonsForTimeout, setdisableButtonsForTimeout] = useState(false);
     const [fontsLoaded] = useFonts({
         Lexend_100Thin,
         Lexend_400Regular,
@@ -42,9 +42,9 @@ const MultipleChoice = ({fetchAndLog}) => {
         fetchQuestions();
     }, [shouldFetch]);
 
-    const handleAnswer = (option) => {
-        if (currentQuestionIndex !== questionsAttempted) return;
-        setDisableBackForTimeout(true);
+    const handleAnswer = (option, disableButtonsForTimeout) => {
+        if (currentQuestionIndex !== questionsAttempted || disableButtonsForTimeout) return;
+        setdisableButtonsForTimeout(true);
 
         setQuestions((prevQuestions) => {
             const updatedQuestions = [...prevQuestions];
@@ -62,7 +62,7 @@ const MultipleChoice = ({fetchAndLog}) => {
         setTimeout(() => {
             setQuestionsAttempted((prev) => prev + 1);
             setCurrentQuestionIndex((prev) => prev + 1);
-            setDisableBackForTimeout(false)
+            setdisableButtonsForTimeout(false)
         }, 1200);
     };
 
@@ -84,7 +84,7 @@ const MultipleChoice = ({fetchAndLog}) => {
             </View>
             <View style={styles.bottomScreen}>
                 <QuestionOptions
-                    questionNumber={currentQuestionIndex + 1}
+                    disableButtonsForTimeout={disableButtonsForTimeout}
                     currentQuestion={currentQuestion}
                     handleAnswer={handleAnswer}
                 />
@@ -95,9 +95,9 @@ const MultipleChoice = ({fetchAndLog}) => {
                     <TouchableOpacity
                         style={[
                             styles.navButton,
-                            (currentQuestionIndex === 0 || disableBackForTimeout) && styles.disabledButton,
+                            (currentQuestionIndex === 0 || disableButtonsForTimeout) && styles.disabledButton,
                         ]}
-                        disabled={currentQuestionIndex === 0 || disableBackForTimeout}
+                        disabled={currentQuestionIndex === 0 || disableButtonsForTimeout}
                         onPress={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
                     >
                         <Text style={styles.navButtonText}>Prev</Text>
@@ -119,7 +119,7 @@ const MultipleChoice = ({fetchAndLog}) => {
     );
 };
 
-const QuestionOptions = ({ questionNumber, currentQuestion = {}, handleAnswer }) => {
+const QuestionOptions = ({ disableButtonsForTimeout, currentQuestion = {}, handleAnswer }) => {
     const { options, selectedOption, question, answer } = currentQuestion;
 
     return (
@@ -132,6 +132,7 @@ const QuestionOptions = ({ questionNumber, currentQuestion = {}, handleAnswer })
                         getOptionStyle(selectedOption, option, answer),
                     ]}
                     onPress={() => handleAnswer(option)}
+                    disabled={disableButtonsForTimeout}
                 >
                     <Text style={getOptionTextStyle(selectedOption, option, answer)}>
                         {getPrefixIcon(selectedOption, option, answer)}{option}
