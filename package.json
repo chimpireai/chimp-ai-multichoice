@@ -18,5 +18,15 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/your-username/my-react-native-components.git"
+  },
+  "files": [
+    "assets/",
+    "dist/",
+    "components/",
+    "index.js"
+  ],
+  "dependencies": {
+    "chimpire-ai-multichoice": "file:.yalc/chimpire-ai-multichoice",
+    "expo-image": "^2.0.7"
   }
 }

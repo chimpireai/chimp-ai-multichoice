@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
-import { Dimensions,  } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import { Image } from 'expo-image';
 import { useFonts, Lexend_100Thin, Lexend_400Regular, Lexend_700Bold } from '@expo-google-fonts/lexend';
 
 const { width, height } = Dimensions.get('window');
@@ -67,8 +67,12 @@ const MultipleChoice = ({fetchAndLog}) => {
     };
 
     return isLoading ? (
-        <View style={styles.container}>
-            <Text style={styles.questionText}>Loading...</Text>
+        <View style={styles.loadingContainer}>
+            <Image
+                source={require('../assets/MonkeyStudy.gif')}
+                style={styles.loadingImage}
+            />
+            <Text style={styles.questionText}>Generating questions...</Text>
         </View>
     ) : (
         <ScrollView contentContainerStyle={styles.container}>
@@ -265,6 +269,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: height * 0.03,
         width: '100%',
+    },
+    loadingImage: {
+        width: '100%',
+        aspectRatio: 1,
+        maxWidth: 300, // Or whatever max you prefer
+        resizeMode: 'contain',
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff', // Optional
     },
     topScreen: {
         flex: 1,

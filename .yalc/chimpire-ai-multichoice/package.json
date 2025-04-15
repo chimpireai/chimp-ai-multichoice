@@ -1,0 +1,23 @@
+{
+  "name": "chimpire-ai-multichoice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "A simple set of reusable React Native components (JavaScript only)",
+  "keywords": [
+    "react-native",
+    "components",
+    "ui",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/my-react-native-components.git"
+  },
+  "yalcSig": "53d38b927bf3ee9475cbab8215407109"
+}

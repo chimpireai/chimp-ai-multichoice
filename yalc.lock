@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "chimpire-ai-multichoice": {
+      "version": "1.0.0",
+      "signature": "53d38b927bf3ee9475cbab8215407109",
+      "file": true
+    }
+  }
+}
